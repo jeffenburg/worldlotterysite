@@ -12,13 +12,17 @@ class TheLotterScraper
 {
     public function scrape(Lottery $lottery): array
     {
-        if (!$lottery->thelotter_url) {
-            throw new RuntimeException('No TheLotter URL configured.');
+        if (!$lottery->thelotter_slug) {
+            throw new RuntimeException('No TheLotter slug configured.');
         }
+
+        $url = 'https://www.thelotter.com/lottery-results/'
+            . trim($lottery->thelotter_slug, '/')
+            . '/';
 
         $response = Http::withHeaders([
             'User-Agent' => 'Mozilla/5.0',
-        ])->get($lottery->thelotter_url);
+        ])->get($url);
 
         if (!$response->successful()) {
             throw new RuntimeException(
@@ -157,7 +161,7 @@ class TheLotterScraper
             [
                 'jackpot' => $jackpot,
                 'jackpot_currency' => $currency,
-                'source_url' => $lottery->thelotter_url,
+                'source_url' => $url,
             ]
         );
 

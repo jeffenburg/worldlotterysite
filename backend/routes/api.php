@@ -6,12 +6,18 @@ use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/lotteries', function () {
-    return Lottery::where('active', true)->get();
+    return Lottery::where('active', true)
+        ->with('latestDraw.numbers')
+        ->orderByDesc('jackpot_usd')
+        ->get();
 });
 
 Route::get('/lotteries/{slug}', function ($slug) {
     return Lottery::where('slug', $slug)
         ->where('active', true)
+        ->with(['draws' => function ($query) {
+            $query->with('numbers')->limit(8);
+        }])
         ->firstOrFail();
 });
 

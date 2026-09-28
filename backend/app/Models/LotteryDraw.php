@@ -9,21 +9,23 @@ class LotteryDraw extends Model
     protected $fillable = [
         'lottery_id',
         'draw_date',
-        'numbers',
-        'bonus_numbers',
         'jackpot',
         'jackpot_currency',
         'source_url',
     ];
 
     protected $casts = [
-        'numbers' => 'array',
-        'bonus_numbers' => 'array',
+        'jackpot' => 'decimal:2',
         'draw_date' => 'date',
     ];
 
+    public function lottery()
+    {
+        return $this->belongsTo(Lottery::class);
+    }
+
     public function numbers()
     {
-        return $this->hasMany(LotteryDrawNumber::class);
+        return $this->hasMany(LotteryDrawNumber::class)->orderBy('position');
     }
 }

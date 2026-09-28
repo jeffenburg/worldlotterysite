@@ -8,14 +8,14 @@ use Illuminate\Console\Command;
 
 class ScrapeLotteries extends Command
 {
-    protected $signature = 'lotteries:scrape';
+    protected $signature = 'lotteries:results';
 
-    protected $description = 'Scrape latest lottery results from TheLotter';
+    protected $description = 'Update latest lottery results from TheLotter';
 
     public function handle(TheLotterScraper $scraper): int
     {
         $lotteries = Lottery::where('active', true)
-            ->whereNotNull('thelotter_url')
+            ->whereNotNull('thelotter_slug')
             ->get();
 
         foreach ($lotteries as $lottery) {
