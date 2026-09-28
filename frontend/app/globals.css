@@ -1,0 +1,66 @@
+@import "tailwindcss";
+@import "flag-icons/css/flag-icons.min.css";
+@plugin "@tailwindcss/typography";
+
+:root {
+  --background: #fbf5ec;
+  --surface: #fffdf9;
+  --foreground: #2a2118;
+  --muted: #7a6f61;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --font-sans: var(--font-geist-sans);
+  --font-display: var(--font-baloo);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+}
+
+/* Legacy WordPress-style classes used inside CMS-authored `content` HTML. */
+.prose .alignright {
+  float: right;
+  margin: 0 0 1rem 1.5rem;
+}
+
+.prose .alignleft {
+  float: left;
+  margin: 0 1.5rem 1rem 0;
+}
+
+.prose .aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.prose p.button a {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  background-color: var(--color-rose-500, #f43f5e);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none;
+  padding: 0.625rem 1.25rem;
+}
+
+.prose p.button a:hover {
+  background-color: var(--color-rose-600, #e11d48);
+}
