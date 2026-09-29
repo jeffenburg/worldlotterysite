@@ -68,8 +68,7 @@ export function formatDrawTime(value: string | null | undefined): string {
 
   return new Intl.DateTimeFormat('en-US', {
     hour: 'numeric',
-    minute: '2-digit',
-    timeZoneName: 'short',
+    minute: '2-digit'
   }).format(new Date(value))
 }
 

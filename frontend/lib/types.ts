@@ -29,7 +29,7 @@ export interface Lottery {
   next_draw_at: string | null
   active: boolean
   thelotter_name: string | null
-  thelotter_url: string | null
+  thelotter_slug: string | null
   thelotter_id: number | null
   main_numbers_count: number | null
   bonus_numbers_count: number | null

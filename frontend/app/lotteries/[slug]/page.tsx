@@ -2,10 +2,11 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Fragment, type ReactNode } from 'react'
 import { notFound } from 'next/navigation'
-import { Calendar, ChevronRight, Clock, MapPin, TrendingUp } from 'lucide-react'
+import { Calendar, ChevronRight, Clock, MapPin, Ticket, TrendingUp } from 'lucide-react'
 import { getLottery, getLotteries, getPage } from '@/lib/api'
 import { accentFor } from '@/lib/theme'
 import { formatCompactMoney, formatDrawDate, formatDrawTime, formatMoney, formatRelativeDraw, formatUSD } from '@/lib/format'
+import { theLotterPlayUrl } from '@/lib/thelotter'
 import { LotteryBall } from '@/components/lottery-ball'
 import { SectionHeading } from '@/components/section-heading'
 import { NumberFrequency } from '@/components/number-frequency'
@@ -69,6 +70,7 @@ export default async function LotteryPage({
   const [latestDraw, ...previousDraws] = draws
   const showUsd = lottery.jackpot_currency !== 'USD' && lottery.jackpot_usd
   const templateContent = page?.content?.trim() || null
+  const playUrl = theLotterPlayUrl(lottery.thelotter_slug)
 
   const mainNumbers = (latestDraw?.numbers ?? [])
     .filter((n) => n.type === 'main')
@@ -87,20 +89,27 @@ export default async function LotteryPage({
       <section className={`relative overflow-hidden rounded-3xl border ${accent.softBorder} ${accent.soft} px-6 py-8 sm:px-10 sm:py-10`}>
         <DecorativeCircles accent={accent} />
         <div className="relative">
-          <h1 className="font-display flex items-center gap-3 text-4xl font-extrabold sm:text-5xl">
+          <h1 className="font-display flex justify-center items-center gap-3 text-4xl font-extrabold sm:text-5xl">
             <RoundFlag country={lottery.country} size="lg" />
             {lottery.name}
           </h1>
-          {/* Without CMS content, fall back to the plain description instead of leaving the hero empty. */}
-          {!templateContent && lottery.description && <p className="mt-3 max-w-2xl text-muted">{lottery.description}</p>}
 
-          <div className="mt-6 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+          <div className="mt-3 flex flex-col text-center gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-muted">Current jackpot</p>
+              <p className={`font-display text-sm font-bold uppercase tracking-wider ${accent.text}`}>Current jackpot</p>
               <p className={`font-display text-6xl font-extrabold leading-none ${accent.text} sm:text-7xl`}>
                 {formatCompactMoney(lottery.jackpot, lottery.jackpot_currency)}
               </p>
-              {showUsd && <p className="mt-2 text-lg text-muted">≈ {formatUSD(lottery.jackpot_usd)} USD</p>}
+              {playUrl && (
+                <a
+                  href={playUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`font-display mt-2 flex w-fit items-center gap-2 rounded-full ${accent.solid} ${accent.solidHover} px-6 py-2 text-2xl font-bold text-white shadow-sm transition`}
+                >
+                  <Ticket size={16} /> Play {lottery.name} Now
+                </a>
+              )}
             </div>
 
             <div className={`flex items-center gap-3 rounded-2xl bg-surface px-5 py-3`}>
@@ -108,7 +117,7 @@ export default async function LotteryPage({
                 <Calendar size={20} />
               </span>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wide text-muted">Next draw</p>
+                <p className={`font-display text-xs font-bold uppercase tracking-wider ${accent.text}`}>Next draw</p>
                 <p className="font-display text-lg font-bold">{formatRelativeDraw(lottery.next_draw_at)}</p>
                 {lottery.next_draw_at && (
                   <p className="flex items-center gap-1 text-sm text-muted">
@@ -195,7 +204,7 @@ export default async function LotteryPage({
               <TrendingUp size={18} />
             </span>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-muted">Main numbers</p>
+              <p className={`font-display text-xs font-bold uppercase tracking-wider ${accent.text}`}>Main numbers</p>
               <p className="font-display font-bold">{lottery.main_numbers_count || mainNumbers.length || '—'}</p>
             </div>
           </div>
@@ -204,7 +213,7 @@ export default async function LotteryPage({
               <TrendingUp size={18} />
             </span>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-muted">Bonus numbers</p>
+              <p className={`font-display text-xs font-bold uppercase tracking-wider ${accent.text}`}>Bonus numbers</p>
               <p className="font-display font-bold">{lottery.bonus_numbers_count || otherNumbers.length || '—'}</p>
             </div>
           </div>
@@ -213,7 +222,7 @@ export default async function LotteryPage({
               <MapPin size={18} />
             </span>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-muted">Country</p>
+              <p className={`font-display text-xs font-bold uppercase tracking-wider ${accent.text}`}>Country</p>
               <p className="font-display font-bold">{lottery.country ?? '—'}</p>
             </div>
           </div>

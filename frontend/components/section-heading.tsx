@@ -12,13 +12,13 @@ export function SectionHeading({
   action?: ReactNode
 }) {
   return (
-    <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
+    <div className="font-display mb-5 flex flex-wrap items-end justify-between gap-4">
       <div>
         {kicker && (
           <p className="mb-1 text-sm font-semibold uppercase tracking-wide text-rose-500">{kicker}</p>
         )}
         <h2 className="font-display text-3xl font-bold sm:text-4xl">{title}</h2>
-        {description && <p className="mt-2 max-w-2xl text-muted">{description}</p>}
+        {description && <p className="mt-1 max-w-2xl text-muted">{description}</p>}
       </div>
       {action}
     </div>
