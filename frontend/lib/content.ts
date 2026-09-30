@@ -1,7 +1,10 @@
-import type { Lottery, Page } from './types'
+import type { Page } from './types'
 
-// Pages used as lottery detail templates (matched by slug) aren't standalone editorial guides.
-export function guidePages(pages: Page[], lotteries: Lottery[]): Page[] {
-  const lotterySlugs = new Set(lotteries.map((l) => l.slug))
-  return pages.filter((page) => !lotterySlugs.has(page.slug))
+// Only 'guide' pages are standalone editorial content; 'lottery' and 'homepage' pages render in place.
+export function guidePages(pages: Page[]): Page[] {
+  return pages.filter((page) => page.page_type === 'guide')
+}
+
+export function homepagePage(pages: Page[]): Page | undefined {
+  return pages.find((page) => page.page_type === 'homepage')
 }

@@ -24,6 +24,7 @@
             <tr>
                 <th>Title</th>
                 <th>Slug</th>
+                <th>Type</th>
                 <th>SEO title</th>
                 <th>Status</th>
                 <th>Updated</th>
@@ -35,6 +36,7 @@
                 <tr>
                     <td><a href="{{ route('admin.pages.edit', $page) }}">{{ $page->title }}</a></td>
                     <td class="mono muted">{{ $page->slug }}</td>
+                    <td><span class="badge badge-off">{{ $page->page_type }}</span></td>
                     <td class="muted">{{ $page->meta_title ?? '—' }}</td>
                     <td><span class="badge {{ $page->active ? 'badge-on' : 'badge-off' }}">{{ $page->active ? 'Published' : 'Draft' }}</span></td>
                     <td class="muted">{{ $page->updated_at?->format('Y-m-d') }}</td>
@@ -47,7 +49,7 @@
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="6" class="empty">No pages found.</td></tr>
+                <tr><td colspan="7" class="empty">No pages found.</td></tr>
             @endforelse
             </tbody>
         </table>

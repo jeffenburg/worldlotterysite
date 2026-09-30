@@ -29,7 +29,7 @@ export default async function ContentPage({
   const { slug } = await params
   const page = await getPage(slug)
 
-  if (!page) {
+  if (!page || page.page_type !== 'guide') {
     notFound()
   }
 

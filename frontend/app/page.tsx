@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { BookOpen, ChevronRight, Globe2, Trophy } from 'lucide-react'
 import { getLotteries, getPages } from '@/lib/api'
-import { guidePages } from '@/lib/content'
+import { guidePages, homepagePage } from '@/lib/content'
 import { LotteryCard } from '@/components/lottery-card'
 import { ResultRow } from '@/components/result-row'
 import { SectionHeading } from '@/components/section-heading'
@@ -10,7 +10,8 @@ import { accentFor } from '@/lib/theme'
 
 export default async function Home() {
   const [lotteries, allPages] = await Promise.all([getLotteries(), getPages()])
-  const pages = guidePages(allPages, lotteries)
+  const pages = guidePages(allPages)
+  const homepage = homepagePage(allPages)
 
   const featured = lotteries.slice(0, 3)
   const rest = lotteries.slice(3)
@@ -144,6 +145,16 @@ export default async function Home() {
                 </Link>
               )
             })}
+          </div>
+        </section>
+      )}
+
+      {/* CMS homepage content */}
+      {homepage?.content && (
+        <section className="pt-10">
+          <div className="rounded-3xl bg-surface px-6 py-10 sm:px-10">
+            {/* Admin-authored CMS content, not user-submitted — safe to render as HTML. */}
+            <div className="prose prose-neutral mx-auto max-w-3xl" dangerouslySetInnerHTML={{ __html: homepage.content }} />
           </div>
         </section>
       )}

@@ -21,8 +21,7 @@
 
         <div class="field">
             <label for="content">Content</label>
-            <textarea id="content" name="content" class="tall">{{ old('content', $post->content) }}</textarea>
-            <div class="hint">HTML is allowed and rendered as-is on the public site.</div>
+            <textarea id="content" name="content" class="tall rich-editor">{{ old('content', $post->content) }}</textarea>
         </div>
     </div>
 
@@ -83,3 +82,7 @@
     <a href="{{ route('admin.posts.index') }}" class="btn">Cancel</a>
     <button type="submit" class="btn btn-primary">{{ $post->exists ? 'Save changes' : 'Create post' }}</button>
 </div>
+
+@push('scripts')
+    @include('admin.partials.tinymce')
+@endpush

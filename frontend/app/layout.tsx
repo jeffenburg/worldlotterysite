@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const [lotteries, pages, posts] = await Promise.all([getLotteries(), getPages(), getPosts()]);
-  const guides = guidePages(pages, lotteries);
+  const guides = guidePages(pages);
 
   return (
     <html

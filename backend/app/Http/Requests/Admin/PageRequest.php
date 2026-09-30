@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Models\Page;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -26,6 +27,7 @@ class PageRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'string', 'max:255', Rule::unique('pages', 'slug')->ignore($this->route('page'))],
+            'page_type' => ['required', Rule::in(array_keys(Page::TYPES))],
             'excerpt' => ['nullable', 'string'],
             'content' => ['nullable', 'string'],
             'meta_title' => ['nullable', 'string', 'max:255'],

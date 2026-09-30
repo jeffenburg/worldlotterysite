@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { BookOpen } from 'lucide-react'
-import { getLotteries, getPages } from '@/lib/api'
+import { getPages } from '@/lib/api'
 import { guidePages } from '@/lib/content'
 import { SectionHeading } from '@/components/section-heading'
 import { accentFor } from '@/lib/theme'
@@ -12,8 +12,7 @@ export const metadata: Metadata = {
 }
 
 export default async function GuidesIndexPage() {
-  const [allPages, lotteries] = await Promise.all([getPages(), getLotteries()])
-  const pages = guidePages(allPages, lotteries)
+  const pages = guidePages(await getPages())
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">

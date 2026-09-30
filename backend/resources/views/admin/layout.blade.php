@@ -44,5 +44,6 @@
     @yield('content')
 </div>
 @endauth
+@stack('scripts')
 </body>
 </html>

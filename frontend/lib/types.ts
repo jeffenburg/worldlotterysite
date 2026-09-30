@@ -37,10 +37,13 @@ export interface Lottery {
   draws?: LotteryDraw[]
 }
 
+export type PageType = 'guide' | 'lottery' | 'homepage'
+
 export interface Page {
   id: number
   title: string
   slug: string
+  page_type: PageType
   excerpt: string | null
   content: string | null
   meta_title: string | null

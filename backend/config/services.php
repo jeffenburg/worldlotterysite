@@ -41,4 +41,8 @@ return [
         'bucket' => env('SUPABASE_STORAGE_BUCKET', 'images'),
     ],
 
+    'tinymce' => [
+        'api_key' => env('TINYMCE_API_KEY'),
+    ],
+
 ];
