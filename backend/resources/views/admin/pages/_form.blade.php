@@ -64,3 +64,7 @@
     <a href="{{ route('admin.pages.index') }}" class="btn">Cancel</a>
     <button type="submit" class="btn btn-primary">{{ $page->exists ? 'Save changes' : 'Create page' }}</button>
 </div>
+
+@push('scripts')
+    @include('admin.partials.tinymce')
+@endpush

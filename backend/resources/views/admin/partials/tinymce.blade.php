@@ -19,4 +19,13 @@
             content_style: 'body { font-family: system-ui, sans-serif; font-size: 15px; line-height: 1.6; max-width: 46rem; margin: 1rem auto; }',
         });
     </script>
+@else
+    <script>
+        document.querySelectorAll('textarea.rich-editor').forEach(function (el) {
+            var hint = document.createElement('div');
+            hint.className = 'error';
+            hint.textContent = 'Rich text editor disabled: TINYMCE_API_KEY is not set in the server environment.';
+            el.insertAdjacentElement('afterend', hint);
+        });
+    </script>
 @endif
