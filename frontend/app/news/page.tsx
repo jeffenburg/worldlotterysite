@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { Newspaper } from 'lucide-react'
 import { getPosts } from '@/lib/api'
@@ -26,14 +27,29 @@ export default async function NewsIndexPage() {
               <Link
                 key={post.id}
                 href={`/news/${post.slug}`}
-                className={`group rounded-3xl border ${accent.softBorder} ${accent.soft} p-6 transition hover:-translate-y-1 hover:shadow-md`}
+                className={`group overflow-hidden rounded-3xl border ${accent.softBorder} ${accent.soft} transition hover:-translate-y-1 hover:shadow-md`}
               >
-                <span className={`inline-flex h-10 w-10 items-center justify-center rounded-full ${accent.solid} text-white`}>
-                  <Newspaper size={18} />
-                </span>
-                {post.published_at && <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-muted">{formatDrawDate(post.published_at)}</p>}
-                <h3 className="font-display mt-1 text-lg font-bold">{post.title}</h3>
-                {post.excerpt && <p className="mt-2 text-sm text-muted">{post.excerpt}</p>}
+                {post.image_url && (
+                  <div className="relative aspect-[16/9] w-full">
+                    <Image
+                      src={post.image_url}
+                      alt={post.title}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      className="object-cover transition duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                )}
+                <div className="p-6">
+                  {!post.image_url && (
+                    <span className={`inline-flex h-10 w-10 items-center justify-center rounded-full ${accent.solid} text-white`}>
+                      <Newspaper size={18} />
+                    </span>
+                  )}
+                  {post.published_at && <p className={`${post.image_url ? '' : 'mt-4 '}text-xs font-semibold uppercase tracking-wide text-muted`}>{formatDrawDate(post.published_at)}</p>}
+                  <h3 className="font-display mt-1 text-lg font-bold">{post.title}</h3>
+                  {post.excerpt && <p className="mt-2 text-sm text-muted">{post.excerpt}</p>}
+                </div>
               </Link>
             )
           })}

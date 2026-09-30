@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { Newspaper } from 'lucide-react'
 import { getPost } from '@/lib/api'
@@ -19,6 +20,7 @@ export async function generateMetadata({
   return {
     title: post.meta_title || post.title,
     description: post.meta_description || post.excerpt || undefined,
+    openGraph: post.image_url ? { images: [post.image_url] } : undefined,
   }
 }
 
@@ -42,6 +44,11 @@ export default async function NewsPage({
       {post.published_at && <p className="mt-4 text-sm font-semibold text-muted">{formatDrawDate(post.published_at)}</p>}
       <h1 className="font-display mt-2 text-4xl font-extrabold">{post.title}</h1>
       {post.excerpt && <p className="mt-4 text-lg text-muted">{post.excerpt}</p>}
+      {post.image_url && (
+        <div className="relative mt-8 aspect-[16/9] w-full overflow-hidden rounded-3xl">
+          <Image src={post.image_url} alt={post.title} fill priority sizes="(min-width: 768px) 768px, 100vw" className="object-cover" />
+        </div>
+      )}
       {post.content && (
         // Admin-authored CMS content, not user-submitted — safe to render as HTML.
         <div className="prose prose-neutral mt-8 max-w-none" dangerouslySetInnerHTML={{ __html: post.content }} />
