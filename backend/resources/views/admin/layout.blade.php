@@ -17,6 +17,7 @@
             <a href="{{ route('admin.lotteries.index') }}" @class(['active' => request()->routeIs('admin.lotteries.*')])>Lotteries</a>
             <a href="{{ route('admin.pages.index') }}" @class(['active' => request()->routeIs('admin.pages.*')])>Pages</a>
             <a href="{{ route('admin.posts.index') }}" @class(['active' => request()->routeIs('admin.posts.*')])>Posts</a>
+            <a href="{{ route('admin.clicks.index') }}" @class(['active' => request()->routeIs('admin.clicks.*')])>Clicks</a>
         </nav>
         <div class="sidebar-footer">
             <span class="user">{{ auth()->user()->name }}</span>

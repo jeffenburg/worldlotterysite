@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\ClickController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LotteryController;
 use App\Http\Controllers\Admin\PageController;
@@ -24,5 +25,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('lotteries', LotteryController::class)->except('show');
         Route::resource('pages', PageController::class)->except('show');
         Route::resource('posts', PostController::class)->except('show');
+        Route::get('clicks', [ClickController::class, 'index'])->name('clicks.index');
     });
 });

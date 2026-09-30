@@ -35,3 +35,28 @@ export function getPosts() {
 export function getPost(slug: string) {
   return getJson<Post>(`/posts/${slug}`)
 }
+
+export interface ClickPayload {
+  slug: string
+  placement: string | null
+  target_url: string
+  ip: string | null
+  country: string | null
+  region: string | null
+  city: string | null
+  user_agent: string | null
+  referer: string | null
+}
+
+export async function trackClick(payload: ClickPayload): Promise<void> {
+  try {
+    await fetch(`${API_BASE}/clicks`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(3000),
+    })
+  } catch {
+    // Tracking must never block or break the redirect.
+  }
+}

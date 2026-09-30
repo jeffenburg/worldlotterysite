@@ -28,7 +28,7 @@ function renderTemplatedContent(content: string, sections: Partial<Record<Sectio
     if (!part.trim()) {
       return null
     }
-    return <div key={index} className="prose prose-neutral pt-10" dangerouslySetInnerHTML={{ __html: part }} />
+    return <div key={index} className="prose prose-neutral px-3 py-3" dangerouslySetInnerHTML={{ __html: part }} />
   })
 }
 
@@ -132,7 +132,7 @@ export default async function LotteryPage({
     ),
 
     latest: latestDraw && (
-      <section className="pt-10">
+      <section className="pt-5">
         <SectionHeading
           kicker={formatDrawDate(latestDraw.draw_date)}
           title="Latest winning numbers"
@@ -150,7 +150,7 @@ export default async function LotteryPage({
     ),
 
     results: previousDraws.length > 0 && (
-      <section className="pt-10">
+      <section className="pt-5">
         <SectionHeading kicker="History" title="Recent results" />
         <div className="space-y-3">
           {previousDraws.map((draw) => {
@@ -183,7 +183,7 @@ export default async function LotteryPage({
     ),
 
     stats: draws.length > 0 && (
-      <section className="pt-10">
+      <section className="pt-5">
         <SectionHeading
           kicker="Trends"
           title="Number frequency"
@@ -196,7 +196,7 @@ export default async function LotteryPage({
     ),
 
     explainer: (
-      <section className="pt-10">
+      <section className="pt-5">
         <SectionHeading kicker="Good to know" title={`How ${lottery.name} works`} />
         <div className={`grid gap-4 rounded-3xl border ${accent.softBorder} ${accent.soft} p-6 sm:grid-cols-3`}>
           <div className="flex items-center gap-3">
@@ -231,7 +231,7 @@ export default async function LotteryPage({
     ),
 
     related: related.length > 0 && (
-      <section className="pt-10">
+      <section className="pt-5">
         <SectionHeading
           kicker="Keep exploring"
           title="Related lotteries"
