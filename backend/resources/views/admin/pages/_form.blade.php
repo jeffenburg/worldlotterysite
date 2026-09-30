@@ -21,8 +21,7 @@
 
         <div class="field">
             <label for="content">Content</label>
-            <textarea id="content" name="content" class="tall">{{ old('content', $page->content) }}</textarea>
-            <div class="hint">HTML is allowed and rendered as-is on the public site.</div>
+            <textarea id="content" name="content" class="tall rich-editor">{{ old('content', $page->content) }}</textarea>
         </div>
     </div>
 
